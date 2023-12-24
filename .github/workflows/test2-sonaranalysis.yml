@@ -62,32 +62,26 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       
-  sonarcloud_scan:
+  name: Build
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  sonarcloud:
+    name: SonarCloud
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v3
+      - uses: actions/checkout@v3
         with:
-          python-version: 3.8
-
-      - name: Install SonarCloud Scanner
-        run: |
-          sudo apt-get install openjdk-11-jre
-          wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
-          unzip sonar-scanner-cli-4.6.2.2472-linux.zip
-          export PATH=$PATH:/path/to/sonar-scanner-4.6.2.2472-linux/bin
-
-      - name: SonarCloud Analysis
-        run: |
-          sonar-scanner \
-            -Dsonar.projectKey=githubaction \
-            -Dsonar.organization=devsecops-test1 \
-            -Dsonar.sources=.
-          # Add other SonarCloud properties as needed
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   deploy:
     runs-on: ubuntu-latest
