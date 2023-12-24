@@ -1,4 +1,4 @@
-name: DevSecOps Workflow
+name: DevSecOps Pipeline
 
 on:
   push:
@@ -87,4 +87,26 @@ jobs:
         run: |
           # Add your deployment script or command here
           echo "Deploying to production..."
+
+  complete_pipeline:
+    needs: [build, security_scan, test, deploy]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Complete Pipeline
+        run: |
+          echo "CI/CD pipeline completed successfully!"
 

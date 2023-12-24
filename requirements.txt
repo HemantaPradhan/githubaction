@@ -1,0 +1,16 @@
+# requirements.txt
+
+# Web framework
+Flask==2.0.1
+
+# Database connector
+SQLAlchemy==1.4.23
+
+# Testing framework
+pytest==7.4.3
+
+# Security scanning
+bandit==1.7.0
+
+# Additional dependencies
+requests==2.26.0
