@@ -1,0 +1,14 @@
+# Example requirements.txt
+
+# Core libraries
+numpy==1.21.0
+requests==2.26.0
+
+# Web framework (example: Flask)
+flask==2.0.1
+
+# Database connector (example: SQLAlchemy)
+sqlalchemy==1.4.25
+
+# Security library (example: cryptography)
+cryptography==3.4.8
