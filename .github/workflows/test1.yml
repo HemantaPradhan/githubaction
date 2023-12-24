@@ -1,6 +1,9 @@
-name: Super-Linter
+name: Super-Linter with CodeQL Security Checks
 
-on: push
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   super-lint:
@@ -15,3 +18,14 @@ jobs:
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up CodeQL
+        uses: github/codeql-action/setup@v2
+        with:
+          languages: javascript,python,java  # Add the languages you are using
+
+      - name: Analyze code with CodeQL
+        uses: github/codeql-action/analyze@v2
+        with:
+          queries: security-and-quality.qls
+          languages: javascript,python,java  # Add the languages you are using
