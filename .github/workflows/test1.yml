@@ -1,0 +1,46 @@
+name: Security Checks
+
+on: [push, pull_request]
+
+jobs:
+  security-checks:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.x
+
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run Bandit Security Check
+      run: |
+        bandit -r .
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install Node.js dependencies
+      run: |
+        npm ci
+
+    - name: Run npm audit
+      run: |
+        npm audit --json
+
+    - name: Upload Bandit and npm audit results
+      uses: actions/upload-artifact@v2
+      with:
+        name: security-reports
+        path: |
+          bandit-report.txt
+          npm-audit-report.json
