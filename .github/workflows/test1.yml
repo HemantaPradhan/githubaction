@@ -65,6 +65,11 @@ jobs:
       - name: Run Tests
         run: |
           pytest
+      
+      - name: Debug
+  run: |
+    ls -la
+    find . -name "test_*.py"
 
   deploy:
     runs-on: ubuntu-latest
