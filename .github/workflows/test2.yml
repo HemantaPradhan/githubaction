@@ -1,6 +1,9 @@
-name: Super-Linter
+name: Super-Linter with Security Steps
 
-on: push
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   super-lint:
@@ -9,6 +12,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Run Detect Secrets (check for sensitive information)
+        run: |
+          pip install detect-secrets
+          detect-secrets scan
 
       - name: Run Super-Linter
         uses: github/super-linter@v4
