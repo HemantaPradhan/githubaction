@@ -1,5 +1,11 @@
-# Get the user's name
-name = input("Enter your name: ")
+from flask import Flask
 
-# Print a personalized greeting
-print(f"Hello, {name}! Welcome to the world of Python.")
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return 'Welcome to My Python Web App!'
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
