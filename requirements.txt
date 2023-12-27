@@ -15,4 +15,5 @@ bandit==1.7.0
 # Additional dependencies
 requests==2.26.0
 
+flake8==3.9.2
 
