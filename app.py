@@ -1,42 +1,32 @@
-def add(x, y):
-    return x + y
+import random
 
-def subtract(x, y):
-    return x - y
+def guessing_game():
+    print("Welcome to the Guessing Game!")
+    print("I have selected a random number between 1 and 100. Can you guess it?")
 
-def multiply(x, y):
-    return x * y
+    # Generate a random number between 1 and 100
+    secret_number = random.randint(1, 100)
+    attempts = 0
 
-def divide(x, y):
-    if y != 0:
-        return x / y
-    else:
-        return "Cannot divide by zero"
+    while True:
+        # Get the player's guess
+        try:
+            guess = int(input("Enter your guess: "))
+        except ValueError:
+            print("Please enter a valid number.")
+            continue
 
-# Main calculator loop
-while True:
-    # User input
-    num1 = float(input("Enter first number: "))
-    operation = input("Enter operation (+, -, *, /): ")
-    num2 = float(input("Enter second number: "))
+        # Increment the attempts
+        attempts += 1
 
-    # Perform calculation based on user input
-    if operation == '+':
-        result = add(num1, num2)
-    elif operation == '-':
-        result = subtract(num1, num2)
-    elif operation == '*':
-        result = multiply(num1, num2)
-    elif operation == '/':
-        result = divide(num1, num2)
-    else:
-        print("Invalid operation. Please enter +, -, *, or /.")
-        continue
+        # Check if the guess is correct
+        if guess == secret_number:
+            print(f"Congratulations! You guessed the correct number in {attempts} attempts.")
+            break
+        elif guess < secret_number:
+            print("Too low. Try again.")
+        else:
+            print("Too high. Try again.")
 
-    # Display result
-    print("Result: {}".format(result))
-
-    # Ask the user if they want to perfo
-
-
-
+if __name__ == "__main__":
+    guessing_game()
