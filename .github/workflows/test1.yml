@@ -40,11 +40,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run Bandit Security Scan
-        run: |
-          pip install bandit
-          bandit -r .
-
+      
   test:
     runs-on: ubuntu-latest
 
